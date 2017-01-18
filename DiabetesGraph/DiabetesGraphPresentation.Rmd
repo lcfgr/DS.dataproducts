@@ -1,0 +1,59 @@
+---
+title: "DiabetesGraph"
+author: "Lampros"
+date: "January 18, 2017"
+output: ioslides_presentation
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+library(shiny)
+library(dplyr)
+library(data.table)
+library(ggplot2)
+```
+
+## Purpose
+  
+  
+The purpose of this sample app is to enable persons with diabetes easily graph their Insulin dosage and Glucose levels.  
+This allows the user to have a better view of the trends that his glucose follows and to adapt the Insulin dosage.
+
+This application is used for **Demonstration purpose only** and the data may be inaccurate or false. Please do not use for medical or any other purpose.
+
+All the code for the ShinyApp, Documentation and Presentation can be found at my Github repository  
+
+<a href="https://github.com/lcfgr/dataproducts">Github Data Products repository</a>
+
+## Procedure
+
+- The user must upload a .csv type of file (See documentation for details)
+- Afterward he can select the parameters of .csv file
+- Press Process button
+- Choose the Plot parameters
+- Press Plot button
+
+## Code for sample Graph
+The following code is part of the shinyApp and is used to create a sample Plot
+```{r, echo = T,message=F, comment=F }
+All_data<- data.table::fread("diabetes_data.csv")
+Glucose_data <- select(All_data,c(contains("Date"),contains("Glucose")))
+Glucose_data<- melt(Glucose_data,id.vars = "Date", variable.name = "Time")
+levels(Glucose_data$Time) <- c("08:00","13:00","20:00")
+Glucose_data<-
+  Glucose_data[,datetime:=as.POSIXct(
+    paste(All_data$Date, as.character(Glucose_data$Time)))]
+plot_data <- Glucose_data
+p <- ggplot(plot_data, aes(x= plot_data$datetime, y=plot_data$value))
+p <- p + geom_point()
+p <- p + stat_smooth(method = "loess", formula = y ~ x, size=1)
+p <- p + ggtitle("Glucose/time Graph") + labs(x="Time",y="Glucose(mg/dl)")
+
+```
+
+## Sample Plot
+
+```{r pressure}
+plot(p)
+```
+

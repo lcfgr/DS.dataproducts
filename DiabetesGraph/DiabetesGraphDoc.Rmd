@@ -1,0 +1,41 @@
+---
+title: "DiabetesGraph"
+author: "Lampros"
+date: "January 18, 2017"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Purpose
+
+The purpose of this sample app is to enable persons with diabetes easily graph their Insulin dosage and Glucose levels.  
+This allows the user to have a better view of the trends that his glucose follows and to adapt the Insulin dosage.
+
+
+## Procedure
+  
+  
+* The user must upload a .csv type of file (Please download and use the sample file for testing and ease of use).
+* Afterward he can select the parameters of .csv file (For the sample file, the default options suffice).  
+* Press Process button.
+* Choose the Plot parameters
+* Press Plot button.
+
+## .csv file structure
+
+This sample app expects 3 daily measurements of Glusose level (mg/dl) and 3 daily insulin dosage (units).  
+In the .csv file there should be 7 columns:  
+
+1. Date in the international YYYY-MM-DD format
+2. Morning (Breakfast) glucose measurement
+3. Morning (Breakfast) insulin units
+4. Noon (Lunch) glucose measurement
+5. Noon (Lunch) insulin units
+6. Evening (Dinner) glucose measurement
+7. Evening (Dinner) insulin units
+
+
+**Disclaimer:** This application is used for **Demonstration purpose only** and the data may be inaccurate or false. Please do not use for medical or any other purpose.
